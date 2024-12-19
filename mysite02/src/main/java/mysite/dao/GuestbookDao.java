@@ -57,7 +57,7 @@ public class GuestbookDao {
 		return count;
 	}
 
-	public int deleteByIdAndPasword(Long id, String password) {
+	public int deleteByIdAndPassword(Long id, String password) {
 		int count = 0;
 
 		try (Connection conn = getConnection();

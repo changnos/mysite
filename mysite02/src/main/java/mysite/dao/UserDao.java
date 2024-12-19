@@ -66,6 +66,85 @@ public class UserDao {
 		return count;
 	}
 
+	public int update(UserVo vo) {
+		int count = 0;
+
+		try (Connection conn = getConnection();
+				PreparedStatement pstmt1 = conn.prepareStatement("update user set name=?, gender=? where email=?");
+				PreparedStatement pstmt2 = conn
+						.prepareStatement("update user set name=?, password=password(?), gender=? where email=?");) {
+			if ("".equals(vo.getPassword())) {
+				pstmt1.setString(1, vo.getName());
+				pstmt1.setString(2, vo.getGender());
+				pstmt1.setString(3, vo.getEmail());
+				count = pstmt1.executeUpdate();
+			} else {
+				pstmt2.setString(1, vo.getName());
+				pstmt2.setString(2, vo.getPassword());
+				pstmt2.setString(3, vo.getGender());
+				pstmt2.setString(4, vo.getEmail());
+				count = pstmt2.executeUpdate();
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error: " + e);
+		}
+
+		return count;
+	}
+
+	public UserVo findByEmailAndPassword(String email, String password) {
+		UserVo userVo = null;
+
+		try (Connection conn = getConnection();
+				PreparedStatement pstmt = conn
+						.prepareStatement("select id, name from user where email=? and password=password(?)");) {
+			pstmt.setString(1, email);
+			pstmt.setString(2, password);
+
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				Long id = rs.getLong(1);
+				String name = rs.getString(2);
+
+				userVo = new UserVo();
+				userVo.setId(id);
+				userVo.setName(name);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println("error: " + e);
+		}
+
+		return userVo;
+	}
+
+	public UserVo findById(Long id) {
+		UserVo userVo = null;
+
+		try (Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("select name, email, gender from user where id=?");) {
+			pstmt.setLong(1, id);
+
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				String name = rs.getString(1);
+				String email = rs.getString(2);
+				String gender = rs.getString(3);
+
+				userVo = new UserVo();
+				userVo.setName(name);
+				userVo.setEmail(email);
+				userVo.setGender(gender);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println("error: " + e);
+		}
+
+		return userVo;
+	}
+
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
 
@@ -81,4 +160,5 @@ public class UserDao {
 
 		return conn;
 	}
+
 }
