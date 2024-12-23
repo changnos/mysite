@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public abstract class ActionServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
 	// factoryMethod
 	protected abstract Action getAction(String actionName);
