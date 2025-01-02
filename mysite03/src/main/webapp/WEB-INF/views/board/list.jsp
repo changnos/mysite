@@ -17,10 +17,8 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form id="search_form"
-					action="${pageContext.request.contextPath }/board?p=1"
-					method=get>
-					<input type="text" id="kwd" name="kwd" value=${kwd }><input
+				<form id="search_form" action="${pageContext.request.contextPath }/board" method="post">
+					<input type="text" id="kwd" name="kwd" value=""> <input
 						type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
@@ -64,54 +62,27 @@
 							</c:when>
 								<c:otherwise>
 									<a
-										href="${pageContext.request.contextPath }/board?p=${param.p-1 }&kwd=${kwd }">◀</a>
+										href="${pageContext.request.contextPath }/board?p=${param.p-1 }">◀</a>
 								</c:otherwise>
 							</c:choose></li>
-						<c:choose>
-							<c:when test="${1 <= numberOfPage}">
-								<li
-									class='${param.p == (param.p > 5 ? param.p-4 : 1) ? "selected" : "" }'><a
-									href="${pageContext.request.contextPath }/board?p=${param.p > 5 ? param.p-4 : 1 }&kwd=${kwd }">${param.p > 5 ? param.p-4 : 1 }</a></li>
-							</c:when>
-							<c:otherwise>
-								<li>1</li>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${2 <= numberOfPage}">
-								<li
-									class='${param.p == (param.p > 5 ? param.p-3 : 2) ? "selected" : "" }'><a
-									href="${pageContext.request.contextPath }/board?p=${param.p > 5 ? param.p-3 : 2 }&kwd=${kwd }">${param.p > 5 ? param.p-3 : 2 }</a></li>
-							</c:when>
-							<c:otherwise>
-								<li>2</li>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${3 <= numberOfPage}">
-								<li
-									class='${param.p == (param.p > 5 ? param.p-2 : 3) ? "selected" : "" }'><a
-									href="${pageContext.request.contextPath }/board?p=${param.p > 5 ? param.p-2 : 3 }&kwd=${kwd }">${param.p > 5 ? param.p-2 : 3 }</a></li>
-							</c:when>
-							<c:otherwise>
-								<li>3</li>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${4 <= numberOfPage}">
-								<li
-									class='${param.p == (param.p > 5 ? param.p-1 : 4) ? "selected" : "" }'><a
-									href="${pageContext.request.contextPath }/board?p=${param.p > 5 ? param.p-1 : 4 }&kwd=${kwd }">${param.p > 5 ? param.p-1 : 4 }</a></li>
-							</c:when>
-							<c:otherwise>
-								<li>4</li>
-							</c:otherwise>
-						</c:choose>
+						<li
+							class='${param.p == (param.p > 5 ? param.p-4 : 1) ? "selected" : "" }'><a
+							href="${pageContext.request.contextPath }/board?p=${param.p > 5 ? param.p-4 : 1 }">${param.p > 5 ? param.p-4 : 1 }</a></li>
+						<li
+							class='${param.p == (param.p > 5 ? param.p-3 : 2) ? "selected" : "" }'><a
+							href="${pageContext.request.contextPath }/board?p=${param.p > 5 ? param.p-3 : 2 }">${param.p > 5 ? param.p-3 : 2 }</a></li>
+						<li
+							class='${param.p == (param.p > 5 ? param.p-2 : 3) ? "selected" : "" }'><a
+							href="${pageContext.request.contextPath }/board?p=${param.p > 5 ? param.p-2 : 3 }">${param.p > 5 ? param.p-2 : 3 }</a></li>
+						<li
+							class='${param.p == (param.p > 5 ? param.p-1 : 4) ? "selected" : "" }'><a
+							href="${pageContext.request.contextPath }/board?p=${param.p > 5 ? param.p-1 : 4 }">${param.p > 5 ? param.p-1 : 4 }</a></li>
+
 						<c:choose>
 							<c:when test="${5 <= numberOfPage}">
 								<li
 									class='${param.p == (param.p > 5 ? param.p : 5) ? "selected" : "" }'><a
-									href="${pageContext.request.contextPath }/board?p=${param.p > 5 ? param.p : 5 }&kwd=${kwd }">${param.p > 5 ? param.p : 5 }</a></li>
+									href="${pageContext.request.contextPath }/board?p=${param.p > 5 ? param.p : 5 }">${param.p > 5 ? param.p : 5 }</a></li>
 							</c:when>
 							<c:otherwise>
 								<li>5</li>
@@ -123,7 +94,7 @@
 							</c:when>
 								<c:otherwise>
 									<a
-										href="${pageContext.request.contextPath }/board?p=${param.p+1 }&kwd=${kwd }">▶</a>
+										href="${pageContext.request.contextPath }/board?p=${param.p+1 }">▶</a>
 								</c:otherwise>
 							</c:choose></li>
 					</ul>
